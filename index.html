@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEMify - Interactive Learning</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+        }
+        /* Hide scrollbar for clean UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-indigo-600 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center cursor-pointer" onclick="showSection('home')">
+                    <i class="fa-solid fa-atom text-2xl mr-2 animate-spin-slow"></i>
+                    <span class="font-bold text-xl tracking-wide">STEMify</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <button onclick="showSection('home')" class="hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium transition">Home</button>
+                        <button onclick="showSection('physics')" class="hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium transition">Physics</button>
+                        <button onclick="showSection('trains')" class="hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium transition">Trains</button>
+                        <button onclick="showSection('practice')" class="hover:bg-indigo-500 px-3 py-2 rounded-md text-sm font-medium transition">Quiz/Practice</button>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button onclick="toggleMobileMenu()" class="inline-flex items-center justify-center p-2 rounded-md text-indigo-200 hover:text-white hover:bg-indigo-500 focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-indigo-700">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="showSection('home'); toggleMobileMenu()" class="text-gray-100 hover:bg-indigo-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left">Home</button>
+                <button onclick="showSection('physics'); toggleMobileMenu()" class="text-gray-100 hover:bg-indigo-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left">Physics</button>
+                <button onclick="showSection('trains'); toggleMobileMenu()" class="text-gray-100 hover:bg-indigo-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left">Train Logic</button>
+                <button onclick="showSection('converter'); toggleMobileMenu()" class="text-gray-100 hover:bg-indigo-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left">Converter</button>
+                <button onclick="showSection('practice'); toggleMobileMenu()" class="text-gray-100 hover:bg-indigo-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left">Quiz & Practice</button>
+                <button onclick="showSection('about'); toggleMobileMenu()" class="text-gray-100 hover:bg-indigo-500 block px-3 py-2 rounded-md text-base font-medium w-full text-left">About</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- HOME PAGE -->
+        <section id="home" class="fade-in">
+            <div class="text-center py-10">
+                <h1 class="text-4xl md:text-5xl font-extrabold text-indigo-700 mb-4">Master STEM with Logic</h1>
+                <p class="text-lg text-slate-600 max-w-2xl mx-auto">This platform helps you understand STEM concepts through practice and logic, not memorization. Perfect for school students and competitive exam basics.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                <!-- Physics Card -->
+                <div onclick="showSection('physics')" class="glass-card rounded-xl p-6 hover:shadow-xl transition cursor-pointer border-l-4 border-blue-500 group">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-slate-800">Physics Calculators</h3>
+                        <div class="p-3 bg-blue-100 rounded-full text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-sm">Calculate Speed, Distance, Time and solve Ohm's Law circuit problems.</p>
+                </div>
+
+                <!-- Train Logic Card -->
+                <div onclick="showSection('trains')" class="glass-card rounded-xl p-6 hover:shadow-xl transition cursor-pointer border-l-4 border-green-500 group">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-slate-800">Train Problems</h3>
+                        <div class="p-3 bg-green-100 rounded-full text-green-600 group-hover:bg-green-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-train"></i>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-sm">Master relative speed concepts with 8 different types of interactive train scenarios.</p>
+                </div>
+
+                <!-- Converter Card -->
+                <div onclick="showSection('converter')" class="glass-card rounded-xl p-6 hover:shadow-xl transition cursor-pointer border-l-4 border-purple-500 group">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-slate-800">Unit Converter</h3>
+                        <div class="p-3 bg-purple-100 rounded-full text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-sm">Convert Length, Weight, Speed (km/h ↔ m/s), and basic Currency.</p>
+                </div>
+
+                <!-- Practice Card -->
+                <div onclick="showSection('practice')" class="glass-card rounded-xl p-6 hover:shadow-xl transition cursor-pointer border-l-4 border-orange-500 group">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-slate-800">Practice & Quiz</h3>
+                        <div class="p-3 bg-orange-100 rounded-full text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-clipboard-question"></i>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-sm">Test your skills with step-by-step explanations or exam mode.</p>
+                </div>
+
+                 <!-- About Card -->
+                 <div onclick="showSection('about')" class="glass-card rounded-xl p-6 hover:shadow-xl transition cursor-pointer border-l-4 border-gray-500 group md:col-span-2 lg:col-span-1">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-slate-800">About Project</h3>
+                        <div class="p-3 bg-gray-100 rounded-full text-gray-600 group-hover:bg-gray-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-info"></i>
+                        </div>
+                    </div>
+                    <p class="text-slate-500 text-sm">Learn about the project objectives and future scope.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PHYSICS SECTION -->
+        <section id="physics" class="hidden fade-in space-y-8">
+            <h2 class="text-3xl font-bold text-blue-800 border-b pb-2">Physics Calculators</h2>
+            
+            <!-- SDT Calculator -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+                <div class="flex items-center space-x-3 mb-4">
+                    <i class="fa-solid fa-gauge-high text-blue-600 text-2xl"></i>
+                    <h3 class="text-xl font-bold text-slate-700">Speed - Distance - Time</h3>
+                </div>
+                <div class="mb-4 text-sm text-slate-600 bg-blue-50 p-3 rounded">
+                    <strong>Concept:</strong> Speed = Distance / Time. <br>
+                    Distance is how much ground is covered. Speed is how fast it's covered.
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">I want to calculate:</label>
+                        <select id="sdt-type" onchange="updateSDTInputs()" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 bg-slate-50">
+                            <option value="speed">Speed</option>
+                            <option value="distance">Distance</option>
+                            <option value="time">Time</option>
+                        </select>
+                    </div>
+                    
+                    <div id="sdt-inputs" class="space-y-4">
+                        <!-- Dynamic inputs injected by JS -->
+                    </div>
+                </div>
+                
+                <div class="mt-6 flex justify-end">
+                    <button onclick="calculateSDT()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">Calculate</button>
+                </div>
+                <div id="sdt-result" class="mt-4 hidden p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 font-medium"></div>
+            </div>
+
+            <!-- Ohm's Law Calculator -->
+            <div class="bg-white rounded-xl shadow-md p-6 border border-slate-200">
+                <div class="flex items-center space-x-3 mb-4">
+                    <i class="fa-solid fa-plug text-yellow-600 text-2xl"></i>
+                    <h3 class="text-xl font-bold text-slate-700">Ohm's Law (V = IR)</h3>
+                </div>
+                <div class="mb-4 text-sm text-slate-600 bg-yellow-50 p-3 rounded">
+                    <strong>Concept:</strong> Voltage (V) = Current (I) × Resistance (R).
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Current (I) in Amps</label>
+                        <input type="number" id="ohm-current" placeholder="e.g. 2" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Resistance (R) in Ohms</label>
+                        <input type="number" id="ohm-resistance" placeholder="e.g. 5" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-yellow-500">
+                    </div>
+                    <div class="flex items-end">
+                        <button onclick="calculateOhm()" class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition">Find Voltage</button>
+                    </div>
+                </div>
+                <div id="ohm-result" class="mt-4 hidden p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 font-medium"></div>
+            </div>
+        </section>
+
+        <!-- TRAINS SECTION -->
+        <section id="trains" class="hidden fade-in">
+            <h2 class="text-3xl font-bold text-green-800 border-b pb-2 mb-6">Train Problems & Relative Speed</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <!-- Sidebar Selection -->
+                <div class="lg:col-span-1 space-y-2">
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Select Scenario:</label>
+                    <div class="flex flex-col space-y-2" id="train-type-buttons">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+
+                <!-- Main Calculation Area -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 id="train-scenario-title" class="text-xl font-bold text-green-700">Select a scenario</h3>
+                            <span class="text-xs font-mono bg-slate-100 text-slate-600 px-2 py-1 rounded border">Logic Engine Active</span>
+                        </div>
+                        
+                        <p id="train-scenario-desc" class="text-slate-600 mb-6 text-sm italic">Choose a scenario from the left to begin.</p>
+                        
+                        <div id="train-inputs" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                            <!-- Dynamic Inputs -->
+                        </div>
+
+                        <div class="flex space-x-3 border-t pt-4">
+                            <button onclick="solveTrainProblem()" class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 font-semibold shadow transition">Calculate Result</button>
+                            <button onclick="resetTrainInputs()" class="px-4 py-2 border border-slate-300 text-slate-600 rounded-lg hover:bg-slate-50 transition">Reset</button>
+                        </div>
+                    </div>
+
+                    <!-- Result & Explanation -->
+                    <div id="train-result-box" class="hidden mt-6 bg-slate-50 border border-slate-200 rounded-xl p-6 shadow-inner">
+                        <h4 class="text-lg font-bold text-slate-800 mb-2">Solution</h4>
+                        <div id="train-answer" class="text-2xl font-mono text-green-600 font-bold mb-4"></div>
+                        
+                        <div class="bg-white border border-slate-200 rounded-lg p-4">
+                            <h5 class="font-semibold text-slate-700 mb-2 text-sm uppercase tracking-wider">Step-by-Step Logic</h5>
+                            <ul id="train-steps" class="list-disc list-inside space-y-2 text-slate-600 text-sm font-light">
+                                <!-- Steps -->
+                            </ul>
+                        </div>
+                        <div class="mt-4 p-3 bg-blue-50 text-blue-800 text-xs rounded border border-blue-100">
+                            <i class="fa-solid fa-lightbulb mr-1"></i> <strong>Note:</strong> We automatically convert km/h to m/s using the factor 5/18.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONVERTER SECTION -->
+        <section id="converter" class="hidden fade-in">
+            <h2 class="text-3xl font-bold text-purple-800 border-b pb-2 mb-6">Unit Converter</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Length -->
+                <div class="bg-white p-6 rounded-xl shadow border border-slate-100">
+                    <h3 class="font-bold text-purple-700 mb-4"><i class="fa-solid fa-ruler mr-2"></i>Length</h3>
+                    <div class="flex space-x-2 items-center">
+                        <input type="number" id="conv-len-val" oninput="convertLength()" class="border p-2 rounded w-full" placeholder="Value">
+                        <select id="conv-len-unit" onchange="convertLength()" class="border p-2 rounded bg-slate-50">
+                            <option value="m">Meters (m)</option>
+                            <option value="km">Kilometers (km)</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 text-right font-mono text-slate-500" id="conv-len-res">= 0 km</div>
+                </div>
+
+                <!-- Weight -->
+                <div class="bg-white p-6 rounded-xl shadow border border-slate-100">
+                    <h3 class="font-bold text-purple-700 mb-4"><i class="fa-solid fa-weight-scale mr-2"></i>Weight</h3>
+                    <div class="flex space-x-2 items-center">
+                        <input type="number" id="conv-w-val" oninput="convertWeight()" class="border p-2 rounded w-full" placeholder="Value">
+                        <select id="conv-w-unit" onchange="convertWeight()" class="border p-2 rounded bg-slate-50">
+                            <option value="kg">Kilograms (kg)</option>
+                            <option value="g">Grams (g)</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 text-right font-mono text-slate-500" id="conv-w-res">= 0 g</div>
+                </div>
+
+                <!-- Speed -->
+                <div class="bg-white p-6 rounded-xl shadow border border-slate-100">
+                    <h3 class="font-bold text-purple-700 mb-4"><i class="fa-solid fa-gauge mr-2"></i>Speed</h3>
+                    <div class="flex space-x-2 items-center">
+                        <input type="number" id="conv-spd-val" oninput="convertSpeed()" class="border p-2 rounded w-full" placeholder="Value">
+                        <select id="conv-spd-unit" onchange="convertSpeed()" class="border p-2 rounded bg-slate-50">
+                            <option value="kmh">km/h</option>
+                            <option value="ms">m/s</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 text-right font-mono text-slate-500" id="conv-spd-res">= 0 m/s</div>
+                </div>
+
+                <!-- Currency -->
+                <div class="bg-white p-6 rounded-xl shadow border border-slate-100">
+                    <h3 class="font-bold text-purple-700 mb-4"><i class="fa-solid fa-coins mr-2"></i>Currency (Approx)</h3>
+                    <div class="flex space-x-2 items-center">
+                        <input type="number" id="conv-cur-val" oninput="convertCurrency()" class="border p-2 rounded w-full" placeholder="Value">
+                        <select id="conv-cur-from" onchange="convertCurrency()" class="border p-2 rounded bg-slate-50 w-24">
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="INR">INR</option>
+                        </select>
+                        <span class="text-slate-400">to</span>
+                        <select id="conv-cur-to" onchange="convertCurrency()" class="border p-2 rounded bg-slate-50 w-24">
+                            <option value="INR">INR</option>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                        </select>
+                    </div>
+                    <div class="mt-2 text-right font-mono text-slate-500" id="conv-cur-res">= 0.00</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRACTICE & QUIZ SECTION -->
+        <section id="practice" class="hidden fade-in">
+            <h2 class="text-3xl font-bold text-orange-800 border-b pb-2 mb-6">Practice & Logic Lab</h2>
+
+            <div class="flex flex-col md:flex-row gap-6">
+                <!-- Mode Selector -->
+                <div class="w-full md:w-1/4 space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h4 class="font-bold text-slate-700 mb-3">Select Mode</h4>
+                        <button onclick="setPracticeMode('practice')" id="btn-mode-practice" class="w-full text-left px-4 py-2 rounded mb-2 bg-orange-100 text-orange-800 font-semibold ring-2 ring-orange-400">
+                            <i class="fa-solid fa-book-open mr-2"></i> Practice Mode
+                        </button>
+                        <button onclick="setPracticeMode('exam')" id="btn-mode-exam" class="w-full text-left px-4 py-2 rounded mb-2 bg-slate-100 text-slate-600 hover:bg-slate-200">
+                            <i class="fa-solid fa-pen-to-square mr-2"></i> Exam Mode
+                        </button>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 text-sm text-blue-800">
+                        <i class="fa-solid fa-info-circle mr-1"></i>
+                        <span id="mode-desc">Step-by-step solutions are shown immediately. Good for learning.</span>
+                    </div>
+                </div>
+
+                <!-- Question Area -->
+                <div class="w-full md:w-3/4">
+                    <div class="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+                        <div class="bg-slate-800 text-white px-6 py-4 flex justify-between items-center">
+                            <h3 class="text-lg font-bold">Random Problem Generator</h3>
+                            <button onclick="generateNewProblem()" class="bg-orange-500 hover:bg-orange-600 text-white text-sm px-3 py-1 rounded transition">
+                                <i class="fa-solid fa-shuffle mr-1"></i> New Problem
+                            </button>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="mb-6">
+                                <span class="inline-block px-2 py-1 bg-slate-200 text-slate-600 text-xs font-bold rounded mb-2 uppercase tracking-wide" id="prob-tag">Topic</span>
+                                <p id="prob-text" class="text-xl text-slate-800 font-medium">Click "New Problem" to start.</p>
+                            </div>
+
+                            <!-- User Answer Input -->
+                            <div id="prob-input-area" class="hidden">
+                                <label class="block text-sm font-medium text-slate-700 mb-2">Your Answer:</label>
+                                <div class="flex gap-2">
+                                    <input type="number" id="user-answer" class="flex-1 p-3 border rounded-lg text-lg bg-slate-50 focus:bg-white focus:ring-2 focus:ring-orange-400" placeholder="Enter value...">
+                                    <button onclick="checkAnswer()" class="bg-slate-800 text-white px-6 rounded-lg font-bold hover:bg-slate-700">Check</button>
+                                </div>
+                            </div>
+
+                            <!-- Feedback Area -->
+                            <div id="prob-feedback" class="mt-6 hidden">
+                                <!-- Populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about" class="hidden fade-in">
+            <h2 class="text-3xl font-bold text-slate-800 border-b pb-2 mb-6">About STEMify</h2>
+            <div class="bg-white rounded-xl shadow p-8 prose max-w-none">
+                <p class="text-lg mb-4"><strong>STEMify</strong> is a web-based learning platform designed to help students master the fundamentals of Physics, Mathematics, and Logical Reasoning. Unlike traditional rote learning, we focus on interactive parameters and real-time logic visualization.</p>
+                
+                <h3 class="text-xl font-bold text-indigo-700 mt-6 mb-2">🎯 Objective</h3>
+                <p>To provide a tool where students can experiment with values (like speed, distance, length) and immediately see how formulas adapt to real-world scenarios like trains crossing bridges or electrical circuits.</p>
+
+                <h3 class="text-xl font-bold text-indigo-700 mt-6 mb-2">🛠 Tech Stack</h3>
+                <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                    <li><strong>Frontend:</strong> HTML5, Tailwind CSS, JavaScript (ES6+)</li>
+                    <li><strong>Hosting:</strong> Client-side Static Web App</li>
+                    <li><strong>Devices:</strong> Optimized for PC, Tablets, and Mobile phones</li>
+                </ul>
+
+                <h3 class="text-xl font-bold text-indigo-700 mt-6 mb-2">🚀 Future Scope</h3>
+                <ul class="list-disc pl-5 space-y-1 text-slate-600">
+                    <li>Integration of Aerospace projectile motion calculators.</li>
+                    <li>Dedicated Mobile Application (PWA).</li>
+                    <li>Advanced graphical plotting for motion graphs.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-6 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>&copy; 2025 STEMify Learning Platform. Built for logical thinkers.</p>
+        </div>
+    </footer>
+
+    <!-- LOGIC SCRIPT -->
+    <script>
+        // --- NAVIGATION LOGIC ---
+        function showSection(id) {
+            // Hide all sections
+            document.querySelectorAll('main > section').forEach(el => el.classList.add('hidden'));
+            // Show target
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- PHYSICS: SDT CALCULATOR ---
+        function updateSDTInputs() {
+            const type = document.getElementById('sdt-type').value;
+            const container = document.getElementById('sdt-inputs');
+            let html = '';
+
+            if (type === 'speed') {
+                html = `
+                    <input type="number" id="sdt-d" placeholder="Distance (meters)" class="w-full p-2 border rounded">
+                    <input type="number" id="sdt-t" placeholder="Time (seconds)" class="w-full p-2 border rounded">
+                `;
+            } else if (type === 'distance') {
+                html = `
+                    <input type="number" id="sdt-s" placeholder="Speed (m/s)" class="w-full p-2 border rounded">
+                    <input type="number" id="sdt-t" placeholder="Time (seconds)" class="w-full p-2 border rounded">
+                `;
+            } else {
+                html = `
+                    <input type="number" id="sdt-d" placeholder="Distance (meters)" class="w-full p-2 border rounded">
+                    <input type="number" id="sdt-s" placeholder="Speed (m/s)" class="w-full p-2 border rounded">
+                `;
+            }
+            container.innerHTML = html;
+            document.getElementById('sdt-result').classList.add('hidden');
+        }
+
+        function calculateSDT() {
+            const type = document.getElementById('sdt-type').value;
+            const resBox = document.getElementById('sdt-result');
+            let res = 0;
+            let text = '';
+
+            if (type === 'speed') {
+                const d = parseFloat(document.getElementById('sdt-d').value);
+                const t = parseFloat(document.getElementById('sdt-t').value);
+                if (!d || !t) return alert('Please enter valid numbers');
+                res = d / t;
+                text = `Speed = ${d}m / ${t}s = ${res.toFixed(2)} m/s`;
+            } else if (type === 'distance') {
+                const s = parseFloat(document.getElementById('sdt-s').value);
+                const t = parseFloat(document.getElementById('sdt-t').value);
+                if (!s || !t) return alert('Please enter valid numbers');
+                res = s * t;
+                text = `Distance = ${s}m/s × ${t}s = ${res.toFixed(2)} meters`;
+            } else {
+                const d = parseFloat(document.getElementById('sdt-d').value);
+                const s = parseFloat(document.getElementById('sdt-s').value);
+                if (!d || !s) return alert('Please enter valid numbers');
+                res = d / s;
+                text = `Time = ${d}m / ${s}m/s = ${res.toFixed(2)} seconds`;
+            }
+
+            resBox.innerHTML = text;
+            resBox.classList.remove('hidden');
+        }
+
+        // --- PHYSICS: OHM'S LAW ---
+        function calculateOhm() {
+            const i = parseFloat(document.getElementById('ohm-current').value);
+            const r = parseFloat(document.getElementById('ohm-resistance').value);
+            
+            if (isNaN(i) || isNaN(r)) return alert("Please enter valid numbers");
+            
+            const v = i * r;
+            const resBox = document.getElementById('ohm-result');
+            resBox.innerHTML = `Voltage (V) = ${i}A × ${r}Ω = <strong>${v.toFixed(2)} Volts</strong>`;
+            resBox.classList.remove('hidden');
+        }
+
+        // --- TRAIN MODULE LOGIC ---
+        
+        const TRAIN_TYPES = [
+            { id: 1, title: "Train Crossing Stationary Object (Pole/Man)", inputs: ['train_len', 'train_speed_kmh'], desc: "Distance = Train Length. Object has negligible length." },
+            { id: 2, title: "Train Crossing Long Object (Bridge/Platform)", inputs: ['train_len', 'obj_len', 'train_speed_kmh'], desc: "Distance = Train Length + Object Length." },
+            { id: 3, title: "Train Crossing Moving Man (Same Direction)", inputs: ['train_len', 'train_speed_kmh', 'man_speed_kmh'], desc: "Relative Speed = Train Speed - Man Speed." },
+            { id: 4, title: "Train Crossing Moving Man (Opposite Direction)", inputs: ['train_len', 'train_speed_kmh', 'man_speed_kmh'], desc: "Relative Speed = Train Speed + Man Speed." },
+            { id: 5, title: "Two Trains Crossing (Opposite Direction)", inputs: ['train1_len', 'train2_len', 'speed1_kmh', 'speed2_kmh'], desc: "Speeds Add. Lengths Add." },
+            { id: 6, title: "Two Trains Crossing (Same Direction)", inputs: ['train1_len', 'train2_len', 'speed1_kmh', 'speed2_kmh'], desc: "Speeds Subtract. Lengths Add." },
+            { id: 7, title: "Man Inside Train vs Passing Train", inputs: ['pass_train_len', 'pass_train_speed', 'man_train_speed', 'direction'], desc: "Only passing train length matters. Relative speed applies." },
+            { id: 8, title: "Two Trains Passing a Pole (Find Crossing Time)", inputs: ['time_a', 'time_b', 'train_len_common'], desc: "Use pole times to find speeds first." }
+        ];
+
+        let currentTrainType = 1;
+
+        function initTrainSection() {
+            const btnContainer = document.getElementById('train-type-buttons');
+            btnContainer.innerHTML = '';
+            TRAIN_TYPES.forEach(type => {
+                const btn = document.createElement('button');
+                btn.className = `text-left px-4 py-3 rounded-lg text-sm font-medium transition border ${type.id === 1 ? 'bg-green-100 border-green-300 text-green-800' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`;
+                btn.onclick = () => setTrainType(type.id, btn);
+                btn.innerHTML = `<span class="font-bold mr-2">${type.id}.</span> ${type.title}`;
+                btnContainer.appendChild(btn);
+            });
+            renderTrainInputs(1);
+        }
+
+        function setTrainType(id, btnElement) {
+            currentTrainType = id;
+            // Update UI styles
+            const buttons = document.getElementById('train-type-buttons').children;
+            for(let btn of buttons) {
+                btn.className = 'text-left px-4 py-3 rounded-lg text-sm font-medium transition border bg-white border-slate-200 text-slate-600 hover:bg-slate-50';
+            }
+            btnElement.className = 'text-left px-4 py-3 rounded-lg text-sm font-medium transition border bg-green-100 border-green-300 text-green-800';
+            
+            renderTrainInputs(id);
+        }
+
+        function renderTrainInputs(id) {
+            const config = TRAIN_TYPES.find(t => t.id === id);
+            document.getElementById('train-scenario-title').innerText = config.title;
+            document.getElementById('train-scenario-desc').innerText = config.desc;
+            const container = document.getElementById('train-inputs');
+            container.innerHTML = '';
+            document.getElementById('train-result-box').classList.add('hidden');
+
+            const inputMap = {
+                'train_len': { label: 'Train Length (m)', id: 'inp_tl' },
+                'obj_len': { label: 'Object Length (Bridge/Platform) (m)', id: 'inp_ol' },
+                'train_speed_kmh': { label: 'Train Speed (km/h)', id: 'inp_ts' },
+                'man_speed_kmh': { label: 'Man Speed (km/h)', id: 'inp_ms' },
+                'train1_len': { label: 'Train 1 Length (m)', id: 'inp_t1l' },
+                'train2_len': { label: 'Train 2 Length (m)', id: 'inp_t2l' },
+                'speed1_kmh': { label: 'Train 1 Speed (km/h)', id: 'inp_s1' },
+                'speed2_kmh': { label: 'Train 2 Speed (km/h)', id: 'inp_s2' },
+                'pass_train_len': { label: 'Passing Train Length (m)', id: 'inp_ptl' },
+                'pass_train_speed': { label: 'Passing Train Speed (km/h)', id: 'inp_pts' },
+                'man_train_speed': { label: 'Man\'s Train Speed (km/h)', id: 'inp_mts' },
+                'time_a': { label: 'Time for Train A to pass pole (s)', id: 'inp_ta' },
+                'time_b': { label: 'Time for Train B to pass pole (s)', id: 'inp_tb' },
+                'train_len_common': { label: 'Length of each train (m)', id: 'inp_tlc' }
+            };
+
+            config.inputs.forEach(key => {
+                if (key === 'direction') {
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Direction</label>
+                        <select id="inp_dir" class="w-full p-2 border rounded bg-white">
+                            <option value="opp">Opposite Direction</option>
+                            <option value="same">Same Direction</option>
+                        </select>
+                    `;
+                    container.appendChild(div);
+                } else {
+                    const def = inputMap[key];
+                    const div = document.createElement('div');
+                    div.innerHTML = `
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">${def.label}</label>
+                        <input type="number" id="${def.id}" class="w-full p-2 border rounded focus:ring-2 focus:ring-green-400" placeholder="Enter value">
+                    `;
+                    container.appendChild(div);
+                }
+            });
+        }
+
+        function solveTrainProblem() {
+            const stepsList = document.getElementById('train-steps');
+            const ansDiv = document.getElementById('train-answer');
+            const resBox = document.getElementById('train-result-box');
+            stepsList.innerHTML = '';
+            
+            // Helper to get value
+            const getVal = (id) => parseFloat(document.getElementById(id)?.value || 0);
+            
+            let time = 0;
+            let steps = [];
+
+            // Common logic
+            const toMs = (kmh) => kmh * (5/18);
+
+            try {
+                if (currentTrainType === 1) {
+                    const L = getVal('inp_tl');
+                    const S_kmh = getVal('inp_ts');
+                    if(!L || !S_kmh) throw "Enter valid values";
+                    
+                    const S_ms = toMs(S_kmh);
+                    steps.push(`Convert Speed: ${S_kmh} km/h × (5/18) = ${S_ms.toFixed(2)} m/s`);
+                    steps.push(`Distance to cover = Length of Train = ${L} m`);
+                    time = L / S_ms;
+                    steps.push(`Time = Distance / Speed = ${L} / ${S_ms.toFixed(2)}`);
+
+                } else if (currentTrainType === 2) {
+                    const Lt = getVal('inp_tl');
+                    const Lo = getVal('inp_ol');
+                    const S_kmh = getVal('inp_ts');
+                    if(!Lt || !Lo || !S_kmh) throw "Enter valid values";
+
+                    const S_ms = toMs(S_kmh);
+                    const totalDist = Lt + Lo;
+                    steps.push(`Total Distance = Train Length + Object Length = ${Lt} + ${Lo} = ${totalDist} m`);
+                    steps.push(`Convert Speed: ${S_kmh} km/h = ${S_ms.toFixed(2)} m/s`);
+                    time = totalDist / S_ms;
+                    steps.push(`Time = ${totalDist} / ${S_ms.toFixed(2)}`);
+
+                } else if (currentTrainType === 3) {
+                    const L = getVal('inp_tl');
+                    const St = getVal('inp_ts');
+                    const Sm = getVal('inp_ms');
+                    if(St <= Sm) throw "Train must be faster than man in same direction";
+                    
+                    const relSpeedKmh = St - Sm;
+                    const relSpeedMs = toMs(relSpeedKmh);
+                    steps.push(`Relative Speed (Same Dir) = ${St} - ${Sm} = ${relSpeedKmh} km/h`);
+                    steps.push(`Convert Rel Speed: ${relSpeedKmh} km/h = ${relSpeedMs.toFixed(2)} m/s`);
+                    time = L / relSpeedMs;
+                    steps.push(`Time = Length / Rel Speed = ${L} / ${relSpeedMs.toFixed(2)}`);
+
+                } else if (currentTrainType === 4) {
+                    const L = getVal('inp_tl');
+                    const St = getVal('inp_ts');
+                    const Sm = getVal('inp_ms');
+                    
+                    const relSpeedKmh = St + Sm;
+                    const relSpeedMs = toMs(relSpeedKmh);
+                    steps.push(`Relative Speed (Opp Dir) = ${St} + ${Sm} = ${relSpeedKmh} km/h`);
+                    steps.push(`Convert Rel Speed: ${relSpeedMs.toFixed(2)} m/s`);
+                    time = L / relSpeedMs;
+
+                } else if (currentTrainType === 5) {
+                    const L1 = getVal('inp_t1l');
+                    const L2 = getVal('inp_t2l');
+                    const S1 = getVal('inp_s1');
+                    const S2 = getVal('inp_s2');
+
+                    const dist = L1 + L2;
+                    const relS = S1 + S2;
+                    const relSMs = toMs(relS);
+                    steps.push(`Total Distance = ${L1} + ${L2} = ${dist} m`);
+                    steps.push(`Relative Speed (Opp) = ${S1} + ${S2} = ${relS} km/h = ${relSMs.toFixed(2)} m/s`);
+                    time = dist / relSMs;
+
+                } else if (currentTrainType === 6) {
+                    const L1 = getVal('inp_t1l');
+                    const L2 = getVal('inp_t2l');
+                    const S1 = getVal('inp_s1');
+                    const S2 = getVal('inp_s2');
+                    
+                    const dist = L1 + L2;
+                    const relS = Math.abs(S1 - S2);
+                    if(relS === 0) throw "Speeds are equal, they will never cross";
+                    const relSMs = toMs(relS);
+                    steps.push(`Total Distance = ${L1} + ${L2} = ${dist} m`);
+                    steps.push(`Relative Speed (Same) = |${S1} - ${S2}| = ${relS} km/h = ${relSMs.toFixed(2)} m/s`);
+                    time = dist / relSMs;
+
+                } else if (currentTrainType === 7) {
+                    const L = getVal('inp_ptl');
+                    const Sp = getVal('inp_pts');
+                    const Sm = getVal('inp_mts');
+                    const dir = document.getElementById('inp_dir').value;
+
+                    let relS = (dir === 'opp') ? (Sp + Sm) : Math.abs(Sp - Sm);
+                    if(relS === 0) throw "Relative speed is zero";
+                    
+                    const relSMs = toMs(relS);
+                    steps.push(`Distance used is only Passing Train Length: ${L} m`);
+                    steps.push(`Relative Speed (${dir === 'opp'?'Opposite':'Same'}) = ${relS} km/h = ${relSMs.toFixed(2)} m/s`);
+                    time = L / relSMs;
+
+                } else if (currentTrainType === 8) {
+                    const Ta = getVal('inp_ta');
+                    const Tb = getVal('inp_tb');
+                    const L = getVal('inp_tlc');
+                    if(!Ta || !Tb || !L) throw "Enter values";
+
+                    const Sa = L / Ta;
+                    const Sb = L / Tb;
+                    
+                    // Assuming Opposite direction for standard problem unless specified, but standard implies crossing each other usually involves adding logic.
+                    // The prompt implies "Two Trains passing a pole" then implicitly crossing each other.
+                    // Let's assume opposite direction crossing for the final answer.
+                    
+                    steps.push(`Speed Train A = ${L}m / ${Ta}s = ${Sa.toFixed(2)} m/s`);
+                    steps.push(`Speed Train B = ${L}m / ${Tb}s = ${Sb.toFixed(2)} m/s`);
+                    
+                    const totalD = L + L;
+                    const relSpeed = Sa + Sb; // Standard assumption: Opposite
+                    steps.push(`Assuming Opposite Direction Crossing:`);
+                    steps.push(`Total Distance = ${totalD} m, Rel Speed = ${(Sa+Sb).toFixed(2)} m/s`);
+                    
+                    time = totalD / relSpeed;
+                }
+
+                ansDiv.innerText = `${time.toFixed(2)} Seconds`;
+                steps.forEach(s => {
+                    const li = document.createElement('li');
+                    li.innerText = s;
+                    stepsList.appendChild(li);
+                });
+                resBox.classList.remove('hidden');
+
+            } catch (e) {
+                alert("Error: " + e);
+            }
+        }
+
+        function resetTrainInputs() {
+            document.querySelectorAll('#train-inputs input').forEach(i => i.value = '');
+            document.getElementById('train-result-box').classList.add('hidden');
+        }
+
+        // --- CONVERTER LOGIC ---
+        function convertLength() {
+            const val = parseFloat(document.getElementById('conv-len-val').value);
+            const unit = document.getElementById('conv-len-unit').value;
+            const res = document.getElementById('conv-len-res');
+            if(isNaN(val)) return res.innerText = "...";
+            
+            if(unit === 'm') res.innerText = `= ${val/1000} km`;
+            else res.innerText = `= ${val*1000} m`;
+        }
+
+        function convertWeight() {
+            const val = parseFloat(document.getElementById('conv-w-val').value);
+            const unit = document.getElementById('conv-w-unit').value;
+            const res = document.getElementById('conv-w-res');
+            if(isNaN(val)) return res.innerText = "...";
+
+            if(unit === 'kg') res.innerText = `= ${val*1000} g`;
+            else res.innerText = `= ${val/1000} kg`;
+        }
+
+        function convertSpeed() {
+            const val = parseFloat(document.getElementById('conv-spd-val').value);
+            const unit = document.getElementById('conv-spd-unit').value;
+            const res = document.getElementById('conv-spd-res');
+            if(isNaN(val)) return res.innerText = "...";
+
+            if(unit === 'kmh') res.innerText = `= ${(val * 5/18).toFixed(2)} m/s`;
+            else res.innerText = `= ${(val * 18/5).toFixed(2)} km/h`;
+        }
+
+        function convertCurrency() {
+            // Static rates for demo
+            const rates = {
+                'USD': 1, 'EUR': 0.95, 'INR': 83.5
+            };
+            const val = parseFloat(document.getElementById('conv-cur-val').value);
+            const from = document.getElementById('conv-cur-from').value;
+            const to = document.getElementById('conv-cur-to').value;
+            const res = document.getElementById('conv-cur-res');
+            
+            if(isNaN(val)) return res.innerText = "...";
+
+            // Convert to USD first (Base)
+            const inUSD = val / rates[from];
+            const result = inUSD * rates[to];
+            
+            res.innerText = `= ${result.toFixed(2)} ${to}`;
+        }
+
+        // --- PRACTICE & QUIZ LOGIC ---
+        let currentProblem = null;
+        let practiceMode = 'practice'; // 'practice' or 'exam'
+
+        function setPracticeMode(mode) {
+            practiceMode = mode;
+            document.getElementById('btn-mode-practice').className = mode === 'practice' 
+                ? "w-full text-left px-4 py-2 rounded mb-2 bg-orange-100 text-orange-800 font-semibold ring-2 ring-orange-400"
+                : "w-full text-left px-4 py-2 rounded mb-2 bg-slate-100 text-slate-600 hover:bg-slate-200";
+            
+            document.getElementById('btn-mode-exam').className = mode === 'exam'
+                ? "w-full text-left px-4 py-2 rounded mb-2 bg-orange-100 text-orange-800 font-semibold ring-2 ring-orange-400"
+                : "w-full text-left px-4 py-2 rounded mb-2 bg-slate-100 text-slate-600 hover:bg-slate-200";
+
+            document.getElementById('mode-desc').innerText = mode === 'practice' 
+                ? "Step-by-step solutions are shown immediately."
+                : "Only the final score is shown. No hints.";
+            
+            // Clear current problem to avoid confusion
+            document.getElementById('prob-text').innerText = "Mode changed. Click 'New Problem'.";
+            document.getElementById('prob-input-area').classList.add('hidden');
+            document.getElementById('prob-feedback').classList.add('hidden');
+        }
+
+        function generateNewProblem() {
+            // 50% chance Physics, 50% Train
+            const type = Math.random() > 0.5 ? 'phys' : 'train';
+            document.getElementById('prob-feedback').classList.add('hidden');
+            document.getElementById('user-answer').value = '';
+            
+            let problem = {};
+
+            if(type === 'phys') {
+                // Generate simple SDT
+                const d = Math.floor(Math.random() * 500) + 100; // 100-600m
+                const t = Math.floor(Math.random() * 20) + 10;   // 10-30s
+                const s = (d/t).toFixed(1);
+                
+                problem = {
+                    text: `A car travels ${d} meters in ${t} seconds. What is its speed (m/s)?`,
+                    ans: parseFloat(s),
+                    steps: [`Speed = Distance / Time`, `Speed = ${d} / ${t}`, `Speed = ${s} m/s`],
+                    tag: "Physics: Speed"
+                };
+            } else {
+                // Generate simple Train Type 1
+                const L = Math.floor(Math.random() * 200) + 100; // 100-300m
+                const S_kmh = Math.floor(Math.random() * 50) + 30; // 30-80 km/h
+                const S_ms = S_kmh * 5/18;
+                const t = (L / S_ms).toFixed(1);
+
+                problem = {
+                    text: `A train ${L}m long is running at ${S_kmh} km/h. How many seconds does it take to cross a pole?`,
+                    ans: parseFloat(t),
+                    steps: [
+                        `Convert Speed: ${S_kmh} × 5/18 = ${S_ms.toFixed(2)} m/s`,
+                        `Distance = Train Length = ${L}m`,
+                        `Time = ${L} / ${S_ms.toFixed(2)} = ${t}s`
+                    ],
+                    tag: "Trains: Type 1"
+                };
+            }
+
+            currentProblem = problem;
+            document.getElementById('prob-tag').innerText = problem.tag;
+            document.getElementById('prob-text').innerText = problem.text;
+            document.getElementById('prob-input-area').classList.remove('hidden');
+        }
+
+        function checkAnswer() {
+            if(!currentProblem) return;
+            const userVal = parseFloat(document.getElementById('user-answer').value);
+            const feedback = document.getElementById('prob-feedback');
+            
+            if(isNaN(userVal)) {
+                alert("Please enter a number");
+                return;
+            }
+
+            // Allow small margin of error for float calcs
+            const isCorrect = Math.abs(userVal - currentProblem.ans) < 0.2;
+            
+            let html = '';
+            if(isCorrect) {
+                html = `<div class="p-4 bg-green-100 text-green-800 rounded-lg border border-green-200">
+                    <h4 class="font-bold text-lg"><i class="fa-solid fa-check-circle"></i> Correct!</h4>
+                    <p>The answer is ${currentProblem.ans}.</p>`;
+            } else {
+                 html = `<div class="p-4 bg-red-100 text-red-800 rounded-lg border border-red-200">
+                    <h4 class="font-bold text-lg"><i class="fa-solid fa-times-circle"></i> Incorrect.</h4>
+                    <p>The correct answer is ${currentProblem.ans}.</p>`;
+            }
+
+            if(practiceMode === 'practice' || isCorrect) {
+                html += `<div class="mt-3 pt-3 border-t border-black/10">
+                            <p class="font-bold text-sm mb-1">Explanation:</p>
+                            <ul class="list-disc list-inside text-sm">
+                                ${currentProblem.steps.map(s => `<li>${s}</li>`).join('')}
+                            </ul>
+                         </div>`;
+            }
+
+            html += `</div>`;
+            feedback.innerHTML = html;
+            feedback.classList.remove('hidden');
+        }
+
+        // Initialize
+        initTrainSection();
+        updateSDTInputs();
+        // Show home by default
+        showSection('home');
+
+    </script>
+</body>
+</html>
